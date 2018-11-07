@@ -1,27 +1,61 @@
 <?php
-  if(isset($_GET['num1'])) // receive data via GET
-  $num1 = (int)$_GET["num1"]; // convert String to Integer
-  else if(isset($_POST['num1'])) // receive data via POST
-  $num1 = (int)$_POST["num1"]; // convert String to Integer
-  else $num1 = 50; // if not set=>default will be 50. BTW, if not set, it will be 0.
 
-  if(isset($_GET['num2'])) $num2 = (int)$_GET["num2"];
-  else if(isset($_POST['num2'])) $num2 = (int)$_POST["num2"];
-  else $num2 = 50;
+  //TODO: add destructor the Calc class
 
-  if(isset($_GET['num3'])) $num3 = (int)$_GET["num3"];
-  else if(isset($_POST['num3'])) $num3 = (int)$_POST["num3"];
-  else $num3 = 50;
-  if(isset($_GET['num4'])) $num4 = (int)$_GET["num4"];
-  else if(isset($_POST['num4'])) $num4 = (int)$_POST["num4"];
-  else $num4 = 50;
+  //get params from request
+  if(isset($_REQUEST['func'])){
+    $func = (int)$_REQUEST["func"];
+  }else{
+    echo 'error!!!';
+  }
+  if(isset($_REQUEST['num1'])){
+    $num1 = (int)$_REQUEST["num1"];
+  }else{
+    $num1 = 0;
+  }
+  if(isset($_REQUEST['num2'])){
+    $num2 = (int)$_REQUEST["num2"];
+  }else{
+    $num2 = 0;
+  }
+  if(isset($_REQUEST['num3'])){
+    $num3 = (int)$_REQUEST["num3"];
+  }else{
+    $num3 = 0;
+  }
+  
+  $Calc = new Calculator;
+  $method = $_SERVER['REQUEST_METHOD'];
 
-  $sum = $num1 + $num2 + $num3 + $num4; // calculations
-  $avg = ($num1 + $num2 + $num3 + $num4) / 4;
-  $mult = $num1 * $num2 * $num3 * $num4;
+  switch ($func) {
+    case "sum":
+        $retVal = $Calc->sum($num1, $num2, $num3);
+        break;
+    case "mult":
+        $retVal = $Calc->mult($num1, $num2, $num3);
+        break;
+    case "avg":
+        $retVal = $Calc->avg($num1, $num2, $num3);
+        break;
+    default:
+        $retVal = 0;
+}
 
-  $a = array('avg'=>$avg, 'sum'=>$sum, 'mult'=>$mult); // build the results Array
+  $response_arr = array('method'=>$method, 'retVal'=>$retVal);
 
   header('Content-Type: application/json'); // set header for json response
-  echo json_encode($a); // echo the converted JSON Object from the Array
+  echo json_encode($response_arr); // echo the converted JSON Object from the Array
 
+class Calculator{
+  public function sum($num1, $num2, $num3){
+    return $num1 + $num2 + $num3;
+  }
+
+  public function mult($num1, $num2, $num3){
+    return $num1 * $num2 * $num3;
+  }
+
+  public function avg($num1, $num2, $num3){
+    return ($num1 + $num2 + $num3) / 3;
+  }
+}
