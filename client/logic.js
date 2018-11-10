@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     $clearButton.click(function () {
         resetCalculator();
-        $('.calc-typed').text(">press 'ENTER' to add  num1");
+        $('.calc-typed').text("> select number1 and press 'ENTER' ");
         return;
     })
 
@@ -24,22 +24,22 @@ $(document).ready(function () {
         if (num1 == undefined) {
             num1 = parseInt(value);
             $('.calc-operation').append(", num2: ");
-            $('.calc-typed').text(">press 'ENTER' to add  num2");
+            $('.calc-typed').text("> select number2 and press 'ENTER'");
             console.log('num1');
         } else if (num2 == undefined) {
             num2 = parseInt(value);
             $('.calc-operation').append(", num3: ");
-            $('.calc-typed').text(">press 'ENTER' to add  num3");
+            $('.calc-typed').text("> select number3 and press 'SEND'");
+            $(this).text('SEND');
         } else if (num3 == undefined) {
             num3 = parseInt(value);
-            $('.calc-typed').text(">press 'SEND' to get result!");
-            $(this).text('SEND');
-            return;
+            if (sendRequest(method, op, num1, num2, num3)) {
+                resetCalculator();
+            }
         } else {
             if (sendRequest(method, op, num1, num2, num3)) {
-                resetCalculator()
+                resetCalculator();
             }
-            return;
         }
         value = "";
         return;
