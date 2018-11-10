@@ -1,56 +1,67 @@
 <?php
 
   //get params from request
-  if(isset($_REQUEST['func']) && isValidOp($_REQUEST['func'])){
+
+  $method = $_SERVER['REQUEST_METHOD'];
+
+  if(isset($_REQUEST['func'])){
     $func = $_REQUEST["func"];
+  }else if ($method == "PUT"){
+    parse_str(file_get_contents("php://input"),$_PUT);
+    $func = $_PUT['func'];
   }else{
-    echo 'error!!!';
+    echo 'ERROR';
   }
   if(isset($_REQUEST['num1']) && is_numeric($_REQUEST['num1'])){
     $num1 = (int)$_REQUEST["num1"];
+  }else if ($method == "PUT"){
+    $num1 = $_PUT['num1'];
   }else{
     $num1 = 0;
   }
   if(isset($_REQUEST['num2']) && is_numeric($_REQUEST['num1'])){
     $num2 = (int)$_REQUEST["num2"];
+  }else if ($method == "PUT"){
+    $num2 = $_PUT['num2'];
   }else{
     $num2 = 0;
   }
   if(isset($_REQUEST['num3']) && is_numeric($_REQUEST['num1'])){
     $num3 = (int)$_REQUEST["num3"];
+  }else if ($method == "PUT"){
+    $num3 = $_PUT['num3'];
   }else{
     $num3 = 0;
   }
   
   $Calc = new Calculator($num1, $num2, $num3);
-  $method = $_SERVER['REQUEST_METHOD'];
 
   switch ($func) {
     case "sum":
-        $retVal = $Calc->sum();
+        $result = $Calc->sum();
         break;
     case "mult":
-        $retVal = $Calc->mult();
+        $result = $Calc->mult();
         break;
     case "avg":
-        $retVal = $Calc->avg();
+        $result = $Calc->avg();
         break;
     default:
-        $retVal = 0;
+        header('HTTP/1.0 400 Bad Request'); // set header for json response
+        echo 'function is not define...';
+        return;
 }
 
-  $response_arr = array('method'=>$method, 'result'=>$retVal);
+  $response_arr = array('method'=>$method, 'result'=>$result);
 
   header('Content-Type: application/json'); // set header for json response
   echo json_encode($response_arr); // echo the converted JSON Object from the Array
 
   $Calc = null;
 
-function isValidOp(op){
 
-}
 class Calculator{
-  define( NUM_TO_DIVIDE, 3);
+  const NUM_TO_DIVIDE = 3;
   var $num1;
   var $num2;
   var $num3;
@@ -63,18 +74,18 @@ class Calculator{
   }
   
   public function sum(){
-    return $num1 + $num2 + $num3;
+    return $this->num1 + $this->num2 + $this->num3;
   }
   
   public function mult(){
-    return $num1 * $num2 * $num3;
+    return $this->num1 * $this->num2 * $this->num3;
   }
 
   public function avg(){
-    return ($num1 + $num2 + $num3) / NUM_TO_DIVIDE;
+    return ($this->num1 + $this->num2 + $this->num3) / self::NUM_TO_DIVIDE;
   }
 
   public function __destruct() {
-        echo 'Destroying: ', $this->name, PHP_EOL;
+        // printf("Destroying Calculator");
     }
 }

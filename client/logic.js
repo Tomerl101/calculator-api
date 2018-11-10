@@ -2,6 +2,10 @@ const BASE_URL = 'http://localhost/web/service/controller.php';
 
 $(document).ready(function () {
     let $radioButtons = $('input[name=methodType]');
+    let $numbersButtons = $('.numbers');
+    let $method = $('.method');
+    let $op = $('.op');
+    let $send = $('#send');
 
     $radioButtons.click(function () {
         let methodType = $('input[name=methodType]:checked').val();
@@ -20,6 +24,7 @@ function sendRequest(method) {
                     $(".result").text('result:' + data.result);
                 },
                 error: function (request, textStatus, errorThrown) {
+                    alert(errorThrown);
                     alert(request.getResponseHeader('some_header'));
                 }
             });
@@ -28,13 +33,14 @@ function sendRequest(method) {
         case 'POST':
             $.ajax({
                 url: 'http://localhost/web/service/controller.php',
-                data: { func: "sum", num1: 1, num2: 1, num3: 2 },
+                data: { func: "bla", num1: 1, num2: '1', num3: 2 },
                 type: 'POST',
                 success: function (data) {
                     $(".result").text('result:' + data.result);
                 },
                 error: function (request, textStatus, errorThrown) {
-                    alert(request);
+                    alert('request');
+                    alert(request.getResponseHeader());
                 }
             });
             break;
@@ -42,7 +48,7 @@ function sendRequest(method) {
             $.ajax({
                 url: BASE_URL,
                 type: 'PUT',
-                data: "func=mult&num1=10&num2=15&num3=20",
+                data: { func: "sum", num1: 3, num2: 3, num3: 3 },
                 success: function (data) {
                     console.log(data);
                     $(".result").text('result:' + data.result);
