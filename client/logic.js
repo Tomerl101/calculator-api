@@ -1,11 +1,11 @@
 const BASE_URL = 'http://localhost/web/service/controller.php';
 
 $(document).ready(function () {
-    let $radioButtons = $('input[name=methodType]');
     let $numbersButtons = $('.numbers');
     let $methodButtons = $('.method');
     let $opButtons = $('.op');
     let $enterButton = $('#enter');
+    let $clearButton = $('#clear');
     let method;
     let op;
 
@@ -14,11 +14,11 @@ $(document).ready(function () {
     let num2;
     let num3;
 
-    $radioButtons.click(function () {
-        let methodType = $('input[name=methodType]:checked').val();
-        sendRequest(methodType);
-    });
-
+    $clearButton.click(function () {
+        resetCalculator();
+        $('.calc-typed').text(">press 'ENTER' to add num1");
+        return;
+    })
 
     $enterButton.click(function () {
         if (num1 == undefined) {
@@ -36,8 +36,9 @@ $(document).ready(function () {
             $(this).text('SEND');
             return;
         } else {
-            sendRequest(method, op, num1, num2, num3);
-            resetCalculator();
+            if (sendRequest(method, op, num1, num2, num3)) {
+                resetCalculator()
+            }
             return;
         }
         value = "";
@@ -78,12 +79,12 @@ $(document).ready(function () {
 function sendRequest(method, op, num1, num2, num3) {
     if (!(method && op)) {
         alert("Choose METHOD and OPERATION to send!");
-        return;
+        return false;
     }
     switch (method) {
         case 'GET':
             $.ajax({
-                url: BASE_URL + '?func=sum&num1=2&num2=2&num3=2',
+                url: BASE_URL + `?func=${op}&num1=${num1}&num2=${num2}&num3=${num3}`,
                 type: 'GET',
                 success: function (data) {
                     $('.calc-typed').text(`> ${op} is: ${data.result}`);
@@ -93,10 +94,8 @@ function sendRequest(method, op, num1, num2, num3) {
                     alert(request.getResponseHeader('some_header'));
                 }
             });
-            console.log('get');
             break;
         case 'POST':
-            console.log('POST in client');
             console.log(method, op, num1, num2, num3);
             $.ajax({
                 url: 'http://localhost/web/service/controller.php',
@@ -115,7 +114,7 @@ function sendRequest(method, op, num1, num2, num3) {
             $.ajax({
                 url: BASE_URL,
                 type: 'PUT',
-                data: { func: "sum", num1: 3, num2: 3, num3: 3 },
+                data: { func: op, num1, num2, num3 },
                 success: function (data) {
                     console.log(data);
                     $('.calc-typed').text(`> ${op} is: ${data.result}`);
@@ -128,5 +127,6 @@ function sendRequest(method, op, num1, num2, num3) {
         default:
             console.log('error');
     }
+    return true;
 }
 

@@ -6,12 +6,13 @@
 }
 
 body {
-  background: #EAEBEC;
+  background-color:cornflowerblue;
 }
 
 .container {
   width: 400px;
   margin: auto;
+  margin-top:25px;
 }
 
 .calc-body {
