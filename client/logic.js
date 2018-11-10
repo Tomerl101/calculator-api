@@ -68,6 +68,7 @@ $(document).ready(function () {
         $('enterButton').text("ENTER");
         $methodButtons.removeClass("method-clicked");
         $opButtons.removeClass("op-clicked");
+        $enterButton.text("ENTER");
         num1 = undefined;
         num2 = undefined;
         num3 = undefined;

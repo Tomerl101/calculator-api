@@ -104,7 +104,7 @@ body {
   background:#D95D4E;
 }
 
-#enter:hover{
+#enter{
   filter: invert(100%);
   color:black;
 }
