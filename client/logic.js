@@ -17,12 +17,10 @@ function sendRequest(method) {
                 url: BASE_URL + '?func=sum&num1=2&num2=2&num3=2',
                 type: 'GET',
                 success: function (data) {
-                    console.log(data);
-                    //check if reVal is not undefined
-                    $(".result").text('result:' + data.retVal);
+                    $(".result").text('result:' + data.result);
                 },
                 error: function (request, textStatus, errorThrown) {
-                    // alert(request.getResponseHeader('some_header'));
+                    alert(request.getResponseHeader('some_header'));
                 }
             });
             console.log('get');
@@ -33,16 +31,12 @@ function sendRequest(method) {
                 data: { func: "sum", num1: 1, num2: 1, num3: 2 },
                 type: 'POST',
                 success: function (data) {
-                    console.log(data);
-                    $(".result").text('result:' + data.retVal);
-                    // res = result;
+                    $(".result").text('result:' + data.result);
                 },
                 error: function (request, textStatus, errorThrown) {
-                    // alert(request.getResponseHeader('some_header'));
-                    console.log(request);
+                    alert(request);
                 }
             });
-            console.log('post');
             break;
         case 'PUT':
             $.ajax({
@@ -51,13 +45,12 @@ function sendRequest(method) {
                 data: "func=mult&num1=10&num2=15&num3=20",
                 success: function (data) {
                     console.log(data);
-                    $(".result").text('result:' + data.retVal);
+                    $(".result").text('result:' + data.result);
                 },
                 error(e) {
                     console.log(e);
                 }
             });
-            console.log('put');
             break;
         default:
             console.log('error');
