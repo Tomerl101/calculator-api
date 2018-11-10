@@ -46,11 +46,15 @@
   header('Content-Type: application/json'); // set header for json response
   echo json_encode($response_arr); // echo the converted JSON Object from the Array
 
+
+
 class Calculator{
+  //save number state and result 
+  
   public function sum($num1, $num2, $num3){
     return $num1 + $num2 + $num3;
   }
-
+  
   public function mult($num1, $num2, $num3){
     return $num1 * $num2 * $num3;
   }

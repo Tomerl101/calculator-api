@@ -18,6 +18,7 @@ function sendRequest(method) {
                 type: 'GET',
                 success: function (data) {
                     console.log(data);
+                    //check if reVal is not undefined
                     $(".result").text('result:' + data.retVal);
                 },
                 error: function (request, textStatus, errorThrown) {
