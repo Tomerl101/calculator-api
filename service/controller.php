@@ -1,8 +1,8 @@
 <?php
 
   //get params from request
-  if(isset($_REQUEST['func'])){
-    $func = (int)$_REQUEST["func"];
+  if(isset($_REQUEST['func']) && isValidOp($_REQUEST['func'])){
+    $func = $_REQUEST["func"];
   }else{
     echo 'error!!!';
   }
@@ -10,22 +10,16 @@
     $num1 = (int)$_REQUEST["num1"];
   }else{
     $num1 = 0;
-    header( 'HTTP/1.1 400: BAD REQUEST' );
-    return;
   }
   if(isset($_REQUEST['num2']) && is_numeric($_REQUEST['num1'])){
     $num2 = (int)$_REQUEST["num2"];
   }else{
     $num2 = 0;
-    header( 'HTTP/1.1 400: BAD REQUEST' );
-    return;
   }
   if(isset($_REQUEST['num3']) && is_numeric($_REQUEST['num1'])){
     $num3 = (int)$_REQUEST["num3"];
   }else{
     $num3 = 0;
-    header( 'HTTP/1.1 400: BAD REQUEST' );
-    return;
   }
   
   $Calc = new Calculator($num1, $num2, $num3);
@@ -33,13 +27,13 @@
 
   switch ($func) {
     case "sum":
-        $retVal = $Calc->sum($num1, $num2, $num3);
+        $retVal = $Calc->sum();
         break;
     case "mult":
-        $retVal = $Calc->mult($num1, $num2, $num3);
+        $retVal = $Calc->mult();
         break;
     case "avg":
-        $retVal = $Calc->avg($num1, $num2, $num3);
+        $retVal = $Calc->avg();
         break;
     default:
         $retVal = 0;
@@ -52,8 +46,11 @@
 
   $Calc = null;
 
+function isValidOp(op){
 
+}
 class Calculator{
+  define( NUM_TO_DIVIDE, 3);
   var $num1;
   var $num2;
   var $num3;
@@ -62,18 +59,19 @@ class Calculator{
     $this->num1 = $num1;
     $this->num2 = $num2;
     $this->num3 = $num3;
+    $result;
   }
   
-  public function sum($num1, $num2, $num3){
+  public function sum(){
     return $num1 + $num2 + $num3;
   }
   
-  public function mult($num1, $num2, $num3){
+  public function mult(){
     return $num1 * $num2 * $num3;
   }
 
-  public function avg($num1, $num2, $num3){
-    return ($num1 + $num2 + $num3) / 3;
+  public function avg(){
+    return ($num1 + $num2 + $num3) / NUM_TO_DIVIDE;
   }
 
   public function __destruct() {
