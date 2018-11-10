@@ -98,3 +98,13 @@ body {
   background: #128de0 !important;
   color: #fff !important;
 }
+
+#clear:hover{
+  color:#fff;
+  background:#D95D4E;
+}
+
+#enter:hover{
+  filter: invert(100%);
+  color:black;
+}

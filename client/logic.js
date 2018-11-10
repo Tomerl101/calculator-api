@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     $clearButton.click(function () {
         resetCalculator();
-        $('.calc-typed').text(">press 'ENTER' to add num1");
+        $('.calc-typed').text(">press 'ENTER' to add  num1");
         return;
     })
 
@@ -24,12 +24,12 @@ $(document).ready(function () {
         if (num1 == undefined) {
             num1 = parseInt(value);
             $('.calc-operation').append(", num2: ");
-            $('.calc-typed').text(">press 'ENTER' to add num2");
+            $('.calc-typed').text(">press 'ENTER' to add  num2");
             console.log('num1');
         } else if (num2 == undefined) {
             num2 = parseInt(value);
             $('.calc-operation').append(", num3: ");
-            $('.calc-typed').text(">press 'ENTER' to add num3");
+            $('.calc-typed').text(">press 'ENTER' to add  num3");
         } else if (num3 == undefined) {
             num3 = parseInt(value);
             $('.calc-typed').text(">press 'SEND' to get result!");
