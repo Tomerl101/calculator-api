@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+
 * {
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Orbitron','Roboto', sans-serif;
 }
 
 body {
@@ -28,16 +30,17 @@ body {
 }
 
 .calc-operation {
-  text-align: right;
+  text-align: left;
+  font-weight: bold;
   color: #727B86;
-  font-size: 21px;
+  font-size: 10px;
   padding-bottom: 10px;
   border-bottom: dotted 1px;
 }
 
 .calc-typed {
   margin-top: 20px;
-  font-size: 25px;
+  font-size: 16px;
   text-align: left;
   color: #fff;
 }
@@ -53,7 +56,7 @@ body {
   color: #fff;
   padding: 20px;
   display: inline-block;
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
   vertical-align: middle;
   margin-right: -4px;
@@ -61,6 +64,7 @@ body {
   border-bottom: solid 2px #3C4857;
   transition: all 0.2s ease-in-out;
   font-size:10px;
+  cursor: pointer;
 }
 
 .button.l {
