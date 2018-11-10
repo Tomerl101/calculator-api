@@ -82,12 +82,14 @@ body {
   color: #E0B612;
 }
 
+.method-clicked,
 .method:hover{
-  background: #2de012;
-  color: #fff
+  background: #2de012 !important;
+  color: #fff !important;
 }
 
+.op-clicked, 
 .op:hover{
-  background: #128de0;
-  color: #fff
+  background: #128de0 !important;
+  color: #fff !important;
 }

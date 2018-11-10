@@ -3,14 +3,24 @@ const BASE_URL = 'http://localhost/web/service/controller.php';
 $(document).ready(function () {
     let $radioButtons = $('input[name=methodType]');
     let $numbersButtons = $('.numbers');
-    let $method = $('.method');
-    let $op = $('.op');
-    let $send = $('#send');
+    let $methodButtons = $('.method');
+    let $opButtons = $('.op');
+    let $sendButton = $('#send');
 
     $radioButtons.click(function () {
         let methodType = $('input[name=methodType]:checked').val();
         sendRequest(methodType);
     });
+
+    $methodButtons.click(function () {
+        $methodButtons.removeClass('method-clicked');
+        $(this).toggleClass('method-clicked');
+    })
+
+    $opButtons.click(function () {
+        $opButtons.removeClass('op-clicked');
+        $(this).toggleClass('op-clicked');
+    })
 });
 
 
