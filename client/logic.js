@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost/web/service/controller.php';
+const BASE_URL = '/web/service/controller.php';
 
 $(document).ready(function () {
     let $numbersButtons = $('.numbers');
@@ -25,7 +25,6 @@ $(document).ready(function () {
             num1 = parseInt(value);
             $('.calc-operation').append(", num2: ");
             $('.calc-typed').text("> select number2 and press 'ENTER'");
-            console.log('num1');
         } else if (num2 == undefined) {
             num2 = parseInt(value);
             $('.calc-operation').append(", num3: ");
@@ -73,6 +72,8 @@ $(document).ready(function () {
         num2 = undefined;
         num3 = undefined;
         value = "";
+        method = null;
+        op = null;
     }
 });
 
@@ -85,27 +86,28 @@ function sendRequest(method, op, num1, num2, num3) {
     switch (method) {
         case 'GET':
             $.ajax({
-                url: BASE_URL + `?func=${op}&num1=${num1}&num2=${num2}&num3=${num3}`,
+                url: BASE_URL + `?num1=${num1}&num2=${num2}&num3=${num3}&func=${op}`,
                 type: 'GET',
                 success: function (data) {
-                    $('.calc-typed').text(`> ${op} is: ${data.result}`);
+                    $('.calc-typed').text(`> ${op} is: ${data.result}
+                    \n Press C to reset`);
                 },
-                error: function (request, textStatus, errorThrown) {
-                    alert(errorThrown);
-                    alert(request.getResponseHeader('some_header'));
+                error: function (request, errorThrown) {
+                    console.log(errorThrown);
+                    alert(request.status + request.statusText);
                 }
             });
             break;
         case 'POST':
-            console.log(method, op, num1, num2, num3);
             $.ajax({
                 url: 'http://localhost/web/service/controller.php',
                 data: { func: op, num1, num2, num3 },
                 type: 'POST',
                 success: function (data) {
-                    $('.calc-typed').text(`> ${op} is: ${data.result}`);
+                    $('.calc-typed').text(`> ${op} is: ${data.result}
+                    \n Press C to reset`);
                 },
-                error: function (request, textStatus, errorThrown) {
+                error: function (request, errorThrown) {
                     alert('request');
                     alert(request.getResponseHeader());
                 }
@@ -117,8 +119,8 @@ function sendRequest(method, op, num1, num2, num3) {
                 type: 'PUT',
                 data: { func: op, num1, num2, num3 },
                 success: function (data) {
-                    console.log(data);
-                    $('.calc-typed').text(`> ${op} is: ${data.result}`);
+                    $('.calc-typed').text(`> ${op} is: ${data.result}
+                    \nPress C to reset`);
                 },
                 error(e) {
                     console.log(e);

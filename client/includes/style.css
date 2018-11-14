@@ -9,6 +9,13 @@ body {
   background-color:cornflowerblue;
 }
 
+#title{
+  text-align:center;
+    color: white;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-shadow: 3px 3px 11px #1c1e5b6e;
+}
 .container {
   width: 400px;
   margin: auto;
