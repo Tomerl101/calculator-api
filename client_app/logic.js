@@ -3,21 +3,24 @@ const BASE_URL = 'http://shenkar.html5-book.co.il/2018-2019/dcs/dev_46/service_c
 $(document).ready(function () {
   let $numbersButtons = $('.numbers');
   let $methodButtons = $('.method');
-  let $opButtons = $('.op');
   let $enterButton = $('#enter');
   let $clearButton = $('#clear');
+  let $opButtons = $('.op');
+  let num1, num2, num3;
+  let value = "";
   let method;
   let op;
-  let value = "";
-  let num1, num2, num3;
 
   $clearButton.click(function () {
     resetCalculator();
-    $('.calc-typed').text("> select number1 and press 'ENTER' ");
+    $('.calc-typed')
+      .text("> select number1 and press 'ENTER' ");
     return;
   })
 
   $enterButton.click(function () {
+    value = (isEmpty(value) ? "0" : value);
+
     if (num1 == undefined) {
       num1 = parseInt(value);
       $('.calc-operation').append(", num2: ");
@@ -48,12 +51,15 @@ $(document).ready(function () {
 
   $methodButtons.click(function () {
     $methodButtons.removeClass('method-clicked');
-    method = $(this).toggleClass('method-clicked').text();
+    method = $(this).toggleClass('method-clicked')
+      .text();
   })
 
   $opButtons.click(function () {
     $opButtons.removeClass('op-clicked');
-    op = $(this).toggleClass('op-clicked').text().toLowerCase();
+    op = $(this).toggleClass('op-clicked')
+      .text()
+      .toLowerCase();
   })
 
 
@@ -71,7 +77,6 @@ $(document).ready(function () {
     op = null;
   }
 });
-
 
 function sendRequest(method, op, num1, num2, num3) {
   if (!(method && op)) {
@@ -94,3 +99,6 @@ function sendRequest(method, op, num1, num2, num3) {
   return true;
 }
 
+function isEmpty(val) {
+  return (val == "" ? true : false);
+}
