@@ -1,4 +1,4 @@
-const BASE_URL = 'ttp://shenkar.html5-book.co.il/2018-2019/dcs/dev_46/service_calculator/index.php';
+const BASE_URL = 'http://shenkar.html5-book.co.il/2018-2019/dcs/dev_46/service_calculator/index.php';
 
 $(document).ready(function () {
   let $numbersButtons = $('.numbers');
